@@ -1,0 +1,74 @@
+﻿@page
+@model GitGodsLMS.Pages.AccountTabModel
+@{
+    ViewData["Title"] = "AccountTab";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f9f9f9;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 1.8em;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    h5 {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    input[type="number"] {
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    #PayBalanceButton {
+        background-color: limegreen;
+        color: white;
+        font-size: 1em;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        #PayBalanceButton:hover {
+            background-color: darkgreen;
+        }
+
+    .content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+</style>
+
+<div class="content">
+    <h2>Account Balance: $@Model.TotalBalance</h2>
+
+    <h5>Enter how much of your balance you would like to pay:</h5>
+
+
+    <form method="post" asp-page-handler="PayBalance">
+
+        <input type="number" id="balance" name="PaymentAmount" step="0.01" min="0" required />
+
+        <button id="PayBalanceButton" type="submit">
+            Pay Balance
+        </button>
+    </form>
+</div>

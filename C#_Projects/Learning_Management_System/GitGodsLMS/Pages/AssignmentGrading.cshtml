@@ -1,0 +1,41 @@
+﻿@page
+@model GitGodsLMS.Pages.AssignmentGradingModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Assignment Grading";
+}
+
+<h1>Assignment Grading</h1>
+
+<table border="1" style="width:100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th>Grade</th>
+            <th>Student</th>
+            <th>Class</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.GradingItems)
+        {
+            <form method="post" asp-page-handler="Grade">
+            <tr>
+                <td>
+                    <input type="hidden" name="SubmissionId" value="@item.SubmissionId" />
+                    <input type="number" name="PointsAwarded" style="width:50px;" required /> / @item.MaxPoints
+                </td>
+                <td>@item.StudentFullName</td>
+                <td>@item.ClassName</td>
+                <td>
+                    <button type="submit">Submit</button>
+                        @if (!string.IsNullOrEmpty(item.SubmissionPath))
+                        {
+                        <a class="btn btn-secondary" href="@item.SubmissionPath" target="_blank" style="margin-left: 5px;">Review</a>
+                        }
+                </td>
+            </tr>
+            </form>
+        }
+    </tbody>
+</table>

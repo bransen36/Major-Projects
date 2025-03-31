@@ -1,0 +1,87 @@
+﻿@page
+@model GitGodsLMS.wwwroot.successModel
+@{
+    ViewData["Title"] = "Payment Successful";
+    Layout = "_Layout"; // Using the main layout for consistent styling
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Payment Successful!</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 48px;"></i>
+                    </div>
+
+                    @if (Model.StripeSession != null)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <strong>Email:</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                @Model.CustomerEmail
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <strong>Amount:</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                @Model.PaymentAmount
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <strong>Date:</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                @Model.PaymentDate
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <strong>Payment ID:</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                @Model.PaymentId
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <strong>Receipt:</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                @if (!string.IsNullOrEmpty(Model.ReceiptUrl))
+                                {
+                                    <a href="@Model.ReceiptUrl" target="_blank" class="btn btn-info">
+                                        <i class="fas fa-receipt"></i> View Receipt
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Not available</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @*
+                    @if (!string.IsNullOrEmpty(Model.DebugMessage))
+                    {
+                        <div class="alert alert-info mt-3">
+                            <strong>Debug Info:</strong> @Model.DebugMessage
+                        </div>
+                    }
+                    *@
+
+                    <div class="text-center mt-4">
+                        <a href="/Index" class="btn btn-primary">Return to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

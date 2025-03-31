@@ -1,0 +1,60 @@
+﻿@page
+@model GitGodsLMS.Pages.Shared.SignUpModel
+@{
+	ViewData["Title"] = "Sign Up";
+}
+<div class="d-flex justify-content-center align-items-center" style="height:80vh;">
+    <div class="card shadow" style="width: 25rem;">
+        <div class="card-body">
+            <h4 class="card-title text-center mb-4">Create an Account</h4>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Model.ErrorMessage
+                </div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="user.FirstName" class="form-label">First Name</label>
+                    <input asp-for="user.FirstName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="user.LastName" class="form-label">Last Name</label>
+                    <input asp-for="user.LastName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="user.Birthdate" class="form-label">Birthdate</label>
+                    <input asp-for="user.Birthdate" type="date" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="user.isProfessor" class"form-label">Role</label>
+                    <br />
+                    Student <input asp-for="user.isProfessor" type="radio" cals="form-label" value="false" required/>
+                    Professor <input asp-for="user.isProfessor" type="radio" class="form-label" value="true" required/>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="user.Email" class="form-label">Email</label>
+                    <input asp-for="user.Email" type="email" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="user.Password" class="form-label">Password</label>
+                    <input asp-for="user.Password" type="password" id="password" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="confirmPass" class="form-label">Confirm Password</label>
+                    <input asp-for="confirmPass" type="password" id="confirmPassword" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>

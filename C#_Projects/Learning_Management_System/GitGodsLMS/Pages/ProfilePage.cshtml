@@ -1,0 +1,80 @@
+﻿@page
+@model GitGodsLMS.Pages.ProfilePageModel
+@{
+    ViewData["Title"] = "Profile Page";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">User Profile</h2>
+
+    <div class="text-end mb-3">
+        <form method="post" enctype="multipart/form-data" asp-page-handler="UploadPicture">
+            <label for="profilePictureUpload" class="btn btn-primary">Upload Profile Picture</label>
+            <input type="file" id="profilePictureUpload" name="ProfilePicture" accept="image/*"
+                   style="display: none;" onchange="this.form.submit();" />
+        </form>
+
+        @if (!string.IsNullOrEmpty(Model.ProfilePicturePath))
+        {
+            <img src="@Url.Content(Model.ProfilePicturePath)"
+                 alt="Profile Picture"
+                 style="width: 50px; height: 50px; border-radius: 50%; margin-top: 10px;" />
+        }
+    </div>
+
+    @if (Model.User != null)
+    {
+        <div class="card shadow mt-4">
+            <div class="card-body">
+                <h4 class="card-title">Profile Information</h4>
+                <p><strong>First Name:</strong> @Model.User.FirstName</p>
+                <p><strong>Last Name:</strong> @Model.User.LastName</p>
+                <p><strong>Birthdate:</strong> @Model.User.Birthdate</p>
+                <p><strong>Email:</strong> @Model.User.Email</p>
+
+                <form id="profileForm" method="post">
+                    <fieldset id="additionalInfoFields" disabled>
+                        <div class="mb-3">
+                            <label asp-for="Address1" class="form-label">Address 1</label>
+                            <input asp-for="Address1" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Address2" class="form-label">Address 2</label>
+                            <input asp-for="Address2" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="City" class="form-label">City</label>
+                            <input asp-for="City" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="State" class="form-label">State</label>
+                            <input asp-for="State" class="form-control" />
+                        </div>
+                    </fieldset>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="button" id="editButton" class="btn btn-primary">Edit</button>
+                        <button type="submit" id="saveButton" class="btn btn-success" style="display: none;">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        const editButton = document.getElementById("editButton");
+        const saveButton = document.getElementById("saveButton");
+        const additionalInfoFields = document.getElementById("additionalInfoFields");
+
+        editButton.addEventListener("click", () => {
+            // Enable the fields for editing
+            additionalInfoFields.disabled = false;
+
+            // Show the "Save" button and hide the "Edit" button
+            editButton.style.display = "none";
+            saveButton.style.display = "inline-block";
+        });
+    </script>
+}

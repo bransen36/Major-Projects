@@ -1,0 +1,44 @@
+﻿@page
+@model AssignmentDetailsModel
+@{
+    ViewData["Title"] = "Assignment Details";
+}
+
+<h1>@Model.Assignment.Title</h1>
+<p><strong>Class:</strong> @Model.Assignment.Class.Name</p>
+<p><strong>Due Date:</strong> @Model.Assignment.DueDateTime.ToString("f")</p>
+<p><strong>Max Points:</strong> @Model.Assignment.MaxPoints</p>
+<p><strong>Description:</strong> @Model.Assignment.Description</p>
+
+@if (Model.Assignment.SubmissionType == Pages.Model.SubmissionType.File)
+{
+    <form method="post" asp-page-handler="File" enctype="multipart/form-data">
+        <input type="hidden" name="assignmentId" value="@Model.Assignment.Id" />
+        <label for="fileSubmission">Upload Assignment</label>
+        <input type="file" id="fileSubmission" name="AssignmentSubmissionFile">
+        <button type="submit" class="button btn-primary">Submit</button>
+    </form>
+}
+else if (Model.Assignment.SubmissionType == Pages.Model.SubmissionType.Text)
+{
+    <form method="post" asp-page-handler="Text" style="display: flex; flex-direction: column; align-items: flex-start;">
+        <input type="hidden" name="assignmentId" value="@Model.Assignment.Id" />
+        <label for="TextSubmission" style="margin-bottom: 5px;">Enter your assignment:</label>
+        <textarea id="TextSubmission" name="TextSubmission" required
+                  style="width: 300px; height: 100px; margin-top: -5px; resize: vertical;">@Model.TextSubmission</textarea>
+        <button type="submit" class="button btn-primary" style="margin-top: 10px;">Submit</button>
+    </form>
+}
+
+
+
+
+@if (!Model.ModelState.IsValid)
+{
+    <div class="validation-summary-errors">
+        @foreach (var error in Model.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}

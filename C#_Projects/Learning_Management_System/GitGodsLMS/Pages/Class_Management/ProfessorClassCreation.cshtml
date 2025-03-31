@@ -1,0 +1,95 @@
+﻿@page
+@model ProfessorClassCreationModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create a Class";
+}
+
+<h2>Create a Class</h2>
+
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="NewClass.Name" class="form-label">Class Name</label>
+        <input asp-for="NewClass.Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewClass.Department" class="form-label">Department</label>
+        <input asp-for="NewClass.Department" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewClass.CreditHours" class="form-label">Credit Hours</label>
+        <input asp-for="NewClass.CreditHours" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewClass.CourseNumber" class="form-label">Course Number</label>
+        <input asp-for="NewClass.CourseNumber" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewClass.Capacity" class="form-label">Capacity</label>
+        <input asp-for="NewClass.Capacity" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewClass.Location" class="form-label">Location</label>
+        <input asp-for="NewClass.Location" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Meeting Times</label>
+
+        <div class="row">
+            <div class="col">
+                <label asp-for="NewClass.Sunday" class="form-label">Sunday</label>
+                <input asp-for="NewClass.Sunday" id="SundayCheckbox" class="form-check-inline" type="checkbox" />
+            </div>
+
+            <div class="col">
+                <label asp-for="NewClass.Monday" class="form-label">Monday</label>
+                <input asp-for="NewClass.Monday" id="MondayCheckbox" class="form-check-inline" type="checkbox" />
+            </div>
+
+            <div class="col">
+                <label asp-for="NewClass.Tuesday" class="form-label">Tuesday</label>
+                <input asp-for="NewClass.Tuesday" id="TuesdayCheckbox" class="form-check-inline" type="checkbox" />
+            </div>
+
+            <div class="col">
+                <label asp-for="NewClass.Wednesday" class="form-label">Wednesday</label>
+                <input asp-for="NewClass.Wednesday" id="WednesdayCheckbox" class="form-check-inline" type="checkbox" />
+            </div>
+
+            <div class="col">
+                <label asp-for="NewClass.Thursday" class="form-label">Thursday</label>
+                <input asp-for="NewClass.Thursday" id="ThursdayCheckbox" class="form-check-inline" type="checkbox" />
+            </div>
+
+            <div class="col">
+                <label asp-for="NewClass.Friday" class="form-label">Friday</label>
+                <input asp-for="NewClass.Friday" id="FridayCheckbox" class="form-check-inline" type="checkbox" />
+            </div>
+
+            <div class="col">
+                <label asp-for="NewClass.Saturday" class="form-label">Saturday</label>
+                <input asp-for="NewClass.Saturday" class="form-check-inline" id="SaturdayCheckbox" type="checkbox" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewClass.StartTime" class="form-label">Start Time: </label>
+        <input asp-for="NewClass.StartTime" class="form-control" id="Time" type="time" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewClass.EndTime" class="form-label">End Time: </label>
+        <input asp-for="NewClass.EndTime" class="form-control" id="Time" type="time" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Class</button>
+</form>

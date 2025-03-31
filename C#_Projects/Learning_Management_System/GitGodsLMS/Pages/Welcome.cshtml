@@ -1,0 +1,64 @@
+﻿@page
+@model GitGodsLMS.Pages.WelcomeModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+@if (Model.UserClasses == null || !Model.UserClasses.Any())
+{
+    <p>You have no classes yet.</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var c in Model.UserClasses)
+        {
+            <div class="col">
+                <div class="card h-100" style="cursor: pointer;"
+                     onclick="window.location.href='@Url.Page("./Class_Management/ClassDetails", new { classId = c.Id })'">
+                    <div class="card-body">
+                        <h5 class="card-title">@c.Name</h5>
+                        <p class="card-text">
+                            <strong>Department:</strong> @c.Department
+                        </p>
+                        @if(Model.IsProfessor){
+                            <a class="btn btn-outline-dark" asp-page="./Class_Management/Edit" asp-route-id="@c.Id">Edit</a>
+                            <a class="btn btn-outline-dark" asp-page="./Class_Management/Delete" asp-route-id="@c.Id">Delete</a>
+                            <a class="btn btn-outline-dark" onclick="window.location.href='@Url.Page("./Class_Management/ClassDetails", new { classId = c.Id })'">Details</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (Model.IsStudent)
+{
+    <div style="float: right; width: 300px; margin-left: 20px; border: 1px solid #ccc; padding: 10px;">
+        <h3>Upcoming Assignments</h3>
+
+        @if (Model.UpcomingAssignments == null || !Model.UpcomingAssignments.Any())
+        {
+            <p>No upcoming assignments.</p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var item in Model.UpcomingAssignments)
+                {
+                    <li>
+                        <a asp-page="/AssignmentDetails" asp-route-assignmentId="@item.AssignmentId" style="text-decoration: none; color: inherit;">
+                            <strong>@item.ClassName</strong><br />
+                            @item.AssignmentTitle<br />
+                            <small>Due: @item.DueDateTime.ToString("g")</small>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+}
+
+

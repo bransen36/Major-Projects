@@ -1,0 +1,118 @@
+﻿@page
+@model AssignmentsModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "My Assignments";
+}
+
+<h1>My Assignments</h1>
+
+<!-- "Add Assignment" Button (visible only to professors) -->
+@if (Model.IsProfessor)
+{
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
+        Add Assignment
+    </button>
+}
+
+<!-- List assignments if any -->
+@if (Model.Assignments == null || !Model.Assignments.Any())
+{
+    <p>No assignments found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Class</th>
+                <th>Due Date</th>
+                <th>Max Points</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var assignment in Model.Assignments)
+            {
+                <tr>
+                    <td>@assignment.Title</td>
+                    <td>
+                        @{
+                            // Get the class name for display. (Assuming each assignment has a related Class object.)
+                            var cls = Model.ProfessorClasses.FirstOrDefault(c => c.Id == assignment.ClassId);
+                        }
+                        @cls?.Name
+                    </td>
+                    <td>@assignment.DueDateTime.ToString("g")</td>
+                    <td>@assignment.MaxPoints</td>
+                    <td>
+                        <a class="btn btn-sm btn-secondary" href="@Url.Page("/EditAssignment", new { assignmentId = assignment.Id })">Edit</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-assignmentId="@assignment.Id" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Add Assignment Modal -->
+<div class="modal fade" id="addAssignmentModal" tabindex="-1" aria-labelledby="addAssignmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAssignmentModalLabel">New Assignment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="assignmentTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="assignmentTitle" name="Assignment.Title" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="assignmentDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="assignmentDescription" name="Assignment.Description" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="classSelect" class="form-label">Select Class</label>
+                        <select class="form-select" id="classSelect" name="Assignment.ClassId" required>
+                            <option value="">-- Choose a Class --</option>
+                            @foreach (var cls in Model.ProfessorClasses)
+                            {
+                                <option value="@cls.Id">@cls.Name (@cls.Department)</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dueDate" class="form-label">Due Date and Time</label>
+                        <input type="datetime-local" class="form-control" id="dueDate" name="Assignment.DueDateTime" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Submission Type</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Assignment.SubmissionType" id="textSubmission" value="Text" required />
+                                <label class="form-check-label" for="textSubmission">Text Submission</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Assignment.SubmissionType" id="fileSubmission" value="File" required />
+                                <label class="form-check-label" for="fileSubmission">File Submission</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="maxPoints" class="form-label">Max Points</label>
+                        <input type="number" class="form-control" id="maxPoints" name="Assignment.MaxPoints" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Assignment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+﻿@page
+@model GitGodsLMS.Pages.Class_Management.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Class</h4>
+<hr />
+<div class="row">
+    <div class="container">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Class.Id" />
+            <input type="hidden" asp-for="Class.ProfessorId"/>
+            <div class="mb-3">
+                <label asp-for="Class.Name" class="form-label"></label>
+                <input asp-for="Class.Name" class="form-control" />
+                <span asp-validation-for="Class.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Class.Department" class="form-label"></label>
+                <input asp-for="Class.Department" class="form-control" />
+                <span asp-validation-for="Class.Department" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Class.CreditHours" class="form-label"></label>
+                <input asp-for="Class.CreditHours" class="form-control" />
+                <span asp-validation-for="Class.CreditHours" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Class.CourseNumber" class="form-label"></label>
+                <input asp-for="Class.CourseNumber" class="form-control" />
+                <span asp-validation-for="Class.CourseNumber" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Class.Capacity" class="form-label"></label>
+                <input asp-for="Class.Capacity" class="form-control" />
+                <span asp-validation-for="Class.Capacity" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Class.Location" class="form-label"></label>
+                <input asp-for="Class.Location" class="form-control" />
+                <span asp-validation-for="Class.Location" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Meeting Times</label>
+
+                <div class="row">
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Class.Sunday" /> @Html.DisplayNameFor(model => model.Class.Sunday)
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Class.Monday" /> @Html.DisplayNameFor(model => model.Class.Monday)
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Class.Tuesday" /> @Html.DisplayNameFor(model => model.Class.Tuesday)
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Class.Wednesday" /> @Html.DisplayNameFor(model => model.Class.Wednesday)
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Class.Thursday" /> @Html.DisplayNameFor(model => model.Class.Thursday)
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Class.Friday" /> @Html.DisplayNameFor(model => model.Class.Friday)
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Class.Saturday" /> @Html.DisplayNameFor(model => model.Class.Saturday)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+            <div class="mb-3">
+                <label asp-for="Class.StartTime" class="control-label"></label>
+                <input asp-for="Class.StartTime" class="form-control" type="time" />
+                <span asp-validation-for="Class.StartTime" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Class.EndTime" class="control-label"></label>
+                <input asp-for="Class.EndTime" class="form-control" type="time" />
+                <span asp-validation-for="Class.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Classes">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,20 @@
+# Ignore Visual Studio temporary files, build results, and
+# other unimportant files.
+.vs/
+*.user
+*.suo
+bin/
+obj/
+Debug/
+Release/
+
+# Ignore Rider/JetBrains IDE files
+.idea/
+*.iml
+
+# Ignore logs
+*.log
+
+# Ignore environment files
+.env
+

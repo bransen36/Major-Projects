@@ -1,0 +1,56 @@
+﻿@page
+@model GitGodsLMS.Pages.StudentClassRegistrationModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Register for Classes";
+}
+
+<h2>Register for Classes</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Credit Hours</th>
+            <th>Course Number</th>
+            <th>Capacity</th>
+            <th>Location</th>
+            <th>Meeting Times</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model.AllClasses)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@c.Department</td>
+                <td>@c.CreditHours</td>
+                <td>@c.CourseNumber</td>
+                <td>@c.Capacity</td>
+                <td>@c.Location</td>
+                <td>@c.MeetingTimes</td>
+                <td>
+                    @if (Model.RegisteredClassIds.Contains(c.Id))
+                    {
+                        <form method="post" asp-page-handler="Drop" asp-route-classId="@c.Id">
+                            <button type="submit" class="btn btn-danger">
+                                Drop Class
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="Register" asp-route-classId="@c.Id">
+                            <button type="submit" class="btn btn-success">
+                                Register
+                            </button>
+                        </form>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
